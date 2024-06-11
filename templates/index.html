@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text-to-Speech</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Text-to-Speech</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pdf_file">Choose a PDF file:</label>
+                <input type="file" class="form-control-file" id="pdf_file" name="pdf_file" accept=".pdf">
+            </div>
+            <div class="form-group">
+                <label for="voice">Select a voice:</label>
+                <select class="form-control" id="voice" name="voice">
+                    {% for voice in voices %}
+                    <option value="{{ voice.name }}">{{ voice.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Convert</button>
+            <button type="button" class="btn btn-secondary" onclick="playAudio()">Play</button>
+            <button type="button" class="btn btn-success" onclick="downloadAudio()">Download</button>
+            {% if message %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+    
+    <script>
+        function playAudio() {
+            window.location.href = '/play';
+        }
+
+        function downloadAudio() {
+            window.location.href = '/download';
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
